@@ -9,143 +9,15 @@
         let theme = localStorage.getItem("meek_theme") || "light";
         document.documentElement.setAttribute("data-color-mode", theme);
     </script>
-<meta name="description" content="**读文本**
-```
-val env = ExecutionEnvironment.getExecutionEnvironment
-
-    val tableENV = TableEnvironment.getTableEnvironment(env)
-    //读取文本数据
-    val unit = env.readTextFile('J:\\idea2019\\works\\sjmyexam03\\ru.txt')
-    //隐式转换
-    import org.apache.flink.api.scala._
-    import org.apache.flink.table.api.scala._
-    //使用map将读取到的数据切割放入元组(将数据放入DataSet)
-    val unit1:DataSet[(String,String,String)] = unit.map(
-      x => {
-        val strings = x.split(',')
-
-        (strings(0), strings(1), strings(2))
-
-      }
-
-    )
-  //注册表                   //表名   //DataSet //字段名  
-    tableENV.registerDataSet('stu',unit1,'ids,'name,'jk)
-                              //sqlQuery
-    val table = tableENV.sqlQuery(' select ids,name,jk from stu where ids = '1'')
-
-    tableENV.toDataSet[Row](table).print()
-
-
-  }
-```
-**读数组**
-```
-     val env = ExecutionEnvironment.getExecutionEnvironment
-
-    val tableENV = TableEnvironment.getTableEnvironment(env)
-
-    import org.apache.flink.api.scala._
-    import org.apache.flink.table.api.scala._
-
-    val tuples = List(
-      ('u001', 'alex', 'jk'),
-      ('u002', 'lucy', 'lolita'),
-      ('u003', 'rose', 'jk')
-    )
-
-    val tuple3 = List(
-      ('u001', '女'),
-      ('u002', '女'),
-      ('u003', '男')
-    )
-
-
-
-      //转换数据
-    val unit = env.fromCollection(tuples)
-
-    val value = env.fromCollection(tuple3)
-    //注册表
-    tableENV.registerDataSet('pro',unit,'ids,'name,'likes)
-
-    tableENV.registerDataSet('my',value,'ids,'sex)
-    //查询
-    val table = tableENV.sqlQuery('select * from pro p left join my j on p.ids=j.ids ')
-
-
-    tableENV.toDataSet[Row](table).print()。">
-<meta property="og:title" content="FlinkBathSQLscala">
-<meta property="og:description" content="**读文本**
-```
-val env = ExecutionEnvironment.getExecutionEnvironment
-
-    val tableENV = TableEnvironment.getTableEnvironment(env)
-    //读取文本数据
-    val unit = env.readTextFile('J:\\idea2019\\works\\sjmyexam03\\ru.txt')
-    //隐式转换
-    import org.apache.flink.api.scala._
-    import org.apache.flink.table.api.scala._
-    //使用map将读取到的数据切割放入元组(将数据放入DataSet)
-    val unit1:DataSet[(String,String,String)] = unit.map(
-      x => {
-        val strings = x.split(',')
-
-        (strings(0), strings(1), strings(2))
-
-      }
-
-    )
-  //注册表                   //表名   //DataSet //字段名  
-    tableENV.registerDataSet('stu',unit1,'ids,'name,'jk)
-                              //sqlQuery
-    val table = tableENV.sqlQuery(' select ids,name,jk from stu where ids = '1'')
-
-    tableENV.toDataSet[Row](table).print()
-
-
-  }
-```
-**读数组**
-```
-     val env = ExecutionEnvironment.getExecutionEnvironment
-
-    val tableENV = TableEnvironment.getTableEnvironment(env)
-
-    import org.apache.flink.api.scala._
-    import org.apache.flink.table.api.scala._
-
-    val tuples = List(
-      ('u001', 'alex', 'jk'),
-      ('u002', 'lucy', 'lolita'),
-      ('u003', 'rose', 'jk')
-    )
-
-    val tuple3 = List(
-      ('u001', '女'),
-      ('u002', '女'),
-      ('u003', '男')
-    )
-
-
-
-      //转换数据
-    val unit = env.fromCollection(tuples)
-
-    val value = env.fromCollection(tuple3)
-    //注册表
-    tableENV.registerDataSet('pro',unit,'ids,'name,'likes)
-
-    tableENV.registerDataSet('my',value,'ids,'sex)
-    //查询
-    val table = tableENV.sqlQuery('select * from pro p left join my j on p.ids=j.ids ')
-
-
-    tableENV.toDataSet[Row](table).print()。">
+<meta name="description" content="### 背景
+在spark程序中，当一个传递给Spark操作(例如map和reduce)的函数在远程节点上面运行时，Spark操作实际上操作的是这个函数所用变量的一个独立副本。">
+<meta property="og:title" content="spark广播变量累加器">
+<meta property="og:description" content="### 背景
+在spark程序中，当一个传递给Spark操作(例如map和reduce)的函数在远程节点上面运行时，Spark操作实际上操作的是这个函数所用变量的一个独立副本。">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://0or1world.github.io/post/FlinkBathSQLscala.html">
+<meta property="og:url" content="https://0or1world.github.io/post/spark-guang-bo-bian-liang-lei-jia-qi.html">
 <meta property="og:image" content="https://github.githubassets.com/favicons/favicon.svg">
-<title>FlinkBathSQLscala</title>
+<title>spark广播变量累加器</title>
 
 
 </head>
@@ -176,7 +48,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 
 <body>
     <div id="header">
-<h1 class="postTitle">FlinkBathSQLscala</h1>
+<h1 class="postTitle">spark广播变量累加器</h1>
 <div class="title-right">
     <a href="https://0or1world.github.io" id="buttonHome" class="btn btn-invisible circle" title="首页">
         <svg class="octicon" width="16" height="16">
@@ -184,7 +56,7 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
         </svg>
     </a>
     
-    <a href="https://github.com/0or1world/0or1world.github.io/issues/10" target="_blank" class="btn btn-invisible circle" title="Issue">
+    <a href="https://github.com/0or1world/0or1world.github.io/issues/7" target="_blank" class="btn btn-invisible circle" title="Issue">
         <svg class="octicon" width="16" height="16">
             <path id="pathIssue" fill-rule="evenodd"></path>
         </svg>
@@ -200,70 +72,31 @@ body{box-sizing: border-box;min-width: 200px;max-width: 900px;margin: 20px auto;
 </div>
 </div>
     <div id="content">
-<div class="markdown-body" id="postBody"><p><strong>读文本</strong></p>
-<pre class="notranslate"><code class="notranslate">val env = ExecutionEnvironment.getExecutionEnvironment
-
-    val tableENV = TableEnvironment.getTableEnvironment(env)
-    //读取文本数据
-    val unit = env.readTextFile("J:\\idea2019\\works\\sjmyexam03\\ru.txt")
-    //隐式转换
-    import org.apache.flink.api.scala._
-    import org.apache.flink.table.api.scala._
-    //使用map将读取到的数据切割放入元组(将数据放入DataSet)
-    val unit1:DataSet[(String,String,String)] = unit.map(
-      x =&gt; {
-        val strings = x.split(",")
-
-        (strings(0), strings(1), strings(2))
-
-      }
-
-    )
-  //注册表                   //表名   //DataSet //字段名  
-    tableENV.registerDataSet("stu",unit1,'ids,'name,'jk)
-                              //sqlQuery
-    val table = tableENV.sqlQuery(" select ids,name,jk from stu where ids = '1'")
-
-    tableENV.toDataSet[Row](table).print()
-
-
-  }
+<div class="markdown-body" id="postBody"><h3>背景</h3>
+<p>在spark程序中，当一个传递给Spark操作(例如map和reduce)的函数在远程节点上面运行时，Spark操作实际上操作的是这个函数所用变量的一个独立副本。这些变量会被复制到每台机器上，并且这些变量在远程机器上的所有更新都不会传递回驱动程序。通常跨任务的读写变量是低效的，但是，Spark还是为两种常见的使用模式提供了两种有限的共享变量：<code class="notranslate">广播变（broadcast variable）</code>和<code class="notranslate">累加器（accumulator）</code></p>
+<h2>广播变量</h2>
+<p>如果我们要在分布式计算里面分发大对象，例如：字典，集合，黑白名单等，这个都会由Driver端进行分发，一般来讲，如果这个变量不是广播变量，那么每个task就会分发一份，这在task数目十分多的情况下Driver的带宽会成为系统的瓶颈，而且会大量消耗task服务器上的资源，如果将这个变量声明为广播变量，那么知识每个executor拥有一份，这个executor启动的task会共享这个变量，节省了通信的成本和服务器的资源。<code class="notranslate">变量一旦被定义为一个广播变量，那么这个变量只能读，不能修改</code></p>
+<blockquote>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/fbd67d4227e8f0ba3780256004a3d24b5a9a32f7e5f3aac13bdf7ea2258260f5/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f32303337303935352d616332316331326436333466316232382e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430"><img src="https://camo.githubusercontent.com/fbd67d4227e8f0ba3780256004a3d24b5a9a32f7e5f3aac13bdf7ea2258260f5/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f32303337303935352d616332316331326436333466316232382e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430" alt="" data-canonical-src="https://upload-images.jianshu.io/upload_images/20370955-ac21c12d634f1b28.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" style="max-width: 100%;"></a></p>
+</blockquote>
+<h4>定义广播变量</h4>
+<pre lang="val" data-meta="a = 3" class="notranslate"><code class="notranslate">val broadcast = sc.broadcast(a)
 </code></pre>
-<p><strong>读数组</strong></p>
-<pre class="notranslate"><code class="notranslate">     val env = ExecutionEnvironment.getExecutionEnvironment
-
-    val tableENV = TableEnvironment.getTableEnvironment(env)
-
-    import org.apache.flink.api.scala._
-    import org.apache.flink.table.api.scala._
-
-    val tuples = List(
-      ("u001", "alex", "jk"),
-      ("u002", "lucy", "lolita"),
-      ("u003", "rose", "jk")
-    )
-
-    val tuple3 = List(
-      ("u001", "女"),
-      ("u002", "女"),
-      ("u003", "男")
-    )
-
-
-
-      //转换数据
-    val unit = env.fromCollection(tuples)
-
-    val value = env.fromCollection(tuple3)
-    //注册表
-    tableENV.registerDataSet("pro",unit,'ids,'name,'likes)
-
-    tableENV.registerDataSet("my",value,'ids,'sex)
-    //查询
-    val table = tableENV.sqlQuery("select * from pro p left join my j on p.ids=j.ids ")
-
-
-    tableENV.toDataSet[Row](table).print()
+<h4>还原播变量</h4>
+<pre class="notranslate"><code class="notranslate">val c = broadcast.value
+</code></pre>
+<h2>累加器</h2>
+<p>在spark应用程序中，我们经常会有这样的需求，如异常监控，调试，记录符合某特性的数据的数目，这种需求都需要用到计数器，如果一个变量不被声明为一个累加器，那么它将在被改变时不会再driver端进行全局汇总，即在分布式运行时每个task运行的只是原始变量的一个副本，并不能改变原始变量的值，但是当这个变量被声明为累加器后，该变量就会有分布式计数的功能。<br>
+<code class="notranslate">1. 累加器在Driver端定义赋初始值，累加器只能在Driver端读取最后的值，在Excutor端更新。</code><br>
+<code class="notranslate">2. 累加器不是一个调优的操作，因为如果不这样做，结果是错的</code></p>
+<blockquote>
+<p><a target="_blank" rel="noopener noreferrer nofollow" href="https://camo.githubusercontent.com/57e3e4ea7e17dfc70dc14e5e2ddb4813542043dd99ba09d46a894f796e2618f4/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f32303337303935352d333930306434393232633464383438622e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430"><img src="https://camo.githubusercontent.com/57e3e4ea7e17dfc70dc14e5e2ddb4813542043dd99ba09d46a894f796e2618f4/68747470733a2f2f75706c6f61642d696d616765732e6a69616e7368752e696f2f75706c6f61645f696d616765732f32303337303935352d333930306434393232633464383438622e706e673f696d6167654d6f6772322f6175746f2d6f7269656e742f7374726970253743696d61676556696577322f322f772f31323430" alt="" data-canonical-src="https://upload-images.jianshu.io/upload_images/20370955-3900d4922c4d848b.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" style="max-width: 100%;"></a></p>
+</blockquote>
+<h4>定义累加器</h4>
+<pre class="notranslate"><code class="notranslate">val a = sc.accumulator(0)
+</code></pre>
+<h4>还原累加器</h4>
+<pre class="notranslate"><code class="notranslate">val b = a.value
 </code></pre></div>
 <div style="font-size:small;margin-top:8px;float:right;"></div>
 
