@@ -1,5 +1,6 @@
 系统架构图
 
+<img width="2880" height="1530" alt="Image" src="https://github.com/user-attachments/assets/5c89c099-b452-4f88-9119-22bf01ada868" />
 
 从HBase的架构图上可以看出，HBase中的组件包括Client、Zookeeper、HMaster、HRegionServer、HRegion、Store、MemStore、StoreFile、HFile、HLog等，接下来介绍他们的作用
 
