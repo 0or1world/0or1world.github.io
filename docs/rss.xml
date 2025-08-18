@@ -1,5 +1,70 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>SHIJIE的技术记录</title><link>https://0or1world.github.io</link><description>shijie技术分析与记录</description><copyright>SHIJIE的技术记录</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://github.githubassets.com/favicons/favicon.svg</url><title>avatar</title><link>https://0or1world.github.io</link></image><lastBuildDate>Sun, 17 Aug 2025 03:59:43 +0000</lastBuildDate><managingEditor>SHIJIE的技术记录</managingEditor><ttl>60</ttl><webMaster>SHIJIE的技术记录</webMaster><item><title>Hbase原理</title><link>https://0or1world.github.io/post/Hbase-yuan-li.html</link><description>系统架构图
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>SHIJIE的技术记录</title><link>https://0or1world.github.io</link><description>shijie技术分析与记录</description><copyright>SHIJIE的技术记录</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://github.githubassets.com/favicons/favicon.svg</url><title>avatar</title><link>https://0or1world.github.io</link></image><lastBuildDate>Mon, 18 Aug 2025 03:34:29 +0000</lastBuildDate><managingEditor>SHIJIE的技术记录</managingEditor><ttl>60</ttl><webMaster>SHIJIE的技术记录</webMaster><item><title>笔记</title><link>https://0or1world.github.io/post/bi-ji.html</link><description># sqoop使用
+// sqoop 从mysql导入到hdfs
+./sqoop import --connect jdbc:mysql://localhost:3306/1704e \ #sql连接
+–username root \ #用户
+–password 123456 \ #密码
+–table tb_jk \ #表
+–target-dir /sqooptest \ #储存hdfs的路径
+–fields-terminated-by ‘,’ \ #分割符号
+
+(主键可略去)
+–split-by id \ #mapper按照那个字段进行划分片
+–m 2 #启动俩个mapper
+
+// sqoop 从mysql导入到hive
+bin/sqoop import --connect jdbc:mysql://localhost:3306/1704e
+–username root
+–password 123456
+–table tb_jk
+–hive-import
+–split-by id
+
+按条件从mysql导入到hdfs
+方法一
+bin/sqoop import
+–connect jdbc:mysql://localhost:3306/1704e
+–username root
+–password 123456
+–table tb_jk
+–where 'id&gt;10 or name=‘alice’ '
+–target-dir /Alice
+–fields-terminated-by ‘,’
+–split-by id
+第二种方法
+bin/sqoop import
+–connect jdbc:mysql://localhost:3306/1704e
+–username root
+–password 123456
+–query ‘select id,name from tb_jk where id&gt;10 and `name =“Alice” and $CONDITIONS’
+–target-dir /Alice02
+–fields-terminated-by ‘,’
+–m 1
+
+bin/sqoop export
+–connect jdbc:mysql://localhost:3306/1704e
+–username root
+–password 123456
+–table t_emp
+–input-fields-terminated-by ‘,’
+–export-dir /user/hive/warehouse/t_emp \
+————————————————
+# git使用
+主分支 : master
+分支 : v1.0
+
+1.创建分支 : git branch v1.0
+2.切换分支 : git checkout v1.0
+(注意切换不成功执行: git add . &gt; git commit -m ' ' &gt; git push)
+3.切换分支 : git checkout master
+4.把分支的代码merge到主分支 : git merge v1.0
+5.最后提交到master : git push
+
+# win替换文本
+``` powershell -Command ''(Get-Content 'test.txt') -replace '老字符','新字符' | Set-Content 'test.txt' ' ```
+# sql
+``` create table table_name USING parquet OPTIONS(path 'path/to/parquet/file',mergeSchema 'true' ) ``` 可以忽略字段不匹配导致报错
+。</description><guid isPermaLink="true">https://0or1world.github.io/post/bi-ji.html</guid><pubDate>Mon, 18 Aug 2025 03:34:01 +0000</pubDate></item><item><title>Hbase原理</title><link>https://0or1world.github.io/post/Hbase-yuan-li.html</link><description>系统架构图
 
 &lt;img width='2880' height='1530' alt='Image' src='https://github.com/user-attachments/assets/5c89c099-b452-4f88-9119-22bf01ada868' /&gt;
 
