@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='UTF-8'?>
-<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>SHIJIE的技术记录</title><link>https://0or1world.github.io</link><description>shijie技术分析与记录</description><copyright>SHIJIE的技术记录</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://github.githubassets.com/favicons/favicon.svg</url><title>avatar</title><link>https://0or1world.github.io</link></image><lastBuildDate>Mon, 18 Aug 2025 03:34:29 +0000</lastBuildDate><managingEditor>SHIJIE的技术记录</managingEditor><ttl>60</ttl><webMaster>SHIJIE的技术记录</webMaster><item><title>笔记</title><link>https://0or1world.github.io/post/bi-ji.html</link><description># sqoop使用
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/" version="2.0"><channel><title>SHIJIE的技术记录</title><link>https://0or1world.github.io</link><description>shijie技术分析与记录</description><copyright>SHIJIE的技术记录</copyright><docs>http://www.rssboard.org/rss-specification</docs><generator>python-feedgen</generator><image><url>https://github.githubassets.com/favicons/favicon.svg</url><title>avatar</title><link>https://0or1world.github.io</link></image><lastBuildDate>Mon, 18 Aug 2025 05:28:27 +0000</lastBuildDate><managingEditor>SHIJIE的技术记录</managingEditor><ttl>60</ttl><webMaster>SHIJIE的技术记录</webMaster><item><title>笔记</title><link>https://0or1world.github.io/post/bi-ji.html</link><description># sqoop使用
 // sqoop 从mysql导入到hdfs
 ./sqoop import --connect jdbc:mysql://localhost:3306/1704e \ #sql连接
 –username root \ #用户
@@ -76,7 +76,7 @@ Client
 
 -ROOT-：记录了.META.表的 Region 信息，-ROOT-只有一个 Region，无论如何不会分裂
 
-2、Client 访问用户数据前需要首先访问 ZooKeeper，找到-ROOT-表的 Region 所在的位置，然 后访问-ROOT-表，接着访问.META.表，最后才能找到用户数据的位置去访问，中间需要多次 网络操作，不过 client 端会做 cache 缓存。</description><guid isPermaLink="true">https://0or1world.github.io/post/Hbase-yuan-li.html</guid><pubDate>Sun, 17 Aug 2025 03:57:11 +0000</pubDate></item><item><title>spark杂记</title><link>https://0or1world.github.io/post/spark-za-ji.html</link><description># spark运行框架
+2、Client 访问用户数据前需要首先访问 ZooKeeper，找到-ROOT-表的 Region 所在的位置，然 后访问-ROOT-表，接着访问.META.表，最后才能找到用户数据的位置去访问，中间需要多次 网络操作，不过 client 端会做 cache 缓存。</description><guid isPermaLink="true">https://0or1world.github.io/post/Hbase-yuan-li.html</guid><pubDate>Sun, 17 Aug 2025 03:57:11 +0000</pubDate></item><item><title>Spark详解</title><link>https://0or1world.github.io/post/Spark-xiang-jie.html</link><description># spark运行框架
 ![运行框架](https://upload-images.jianshu.io/upload_images/20370955-0280b1215106605d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 1. 提交一个spark应用时候会对应生成一个driver进程
 2. 注册spark任务到cluster manager 申请需要的资源
@@ -92,7 +92,7 @@ spark job 是 appliction
 3. job之际划分多个stage
 4. 划分依据就是groupbykey宽依赖shuffle算子
 5. stage划分多个task
-6. task是spark运行的最小调度单元。</description><guid isPermaLink="true">https://0or1world.github.io/post/spark-za-ji.html</guid><pubDate>Sat, 16 Aug 2025 16:05:19 +0000</pubDate></item><item><title>Flink自定义sourceAndsink</title><link>https://0or1world.github.io/post/Flink-zi-ding-yi-sourceAndsink.html</link><description>**连接kafka获取数据**&#13;
+6. task是spark运行的最小调度单元。</description><guid isPermaLink="true">https://0or1world.github.io/post/Spark-xiang-jie.html</guid><pubDate>Sat, 16 Aug 2025 16:05:19 +0000</pubDate></item><item><title>Flink自定义sourceAndsink</title><link>https://0or1world.github.io/post/Flink-zi-ding-yi-sourceAndsink.html</link><description>**连接kafka获取数据**&#13;
 &#13;
 ```&#13;
 //flink流处理&#13;
